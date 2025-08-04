@@ -23,8 +23,11 @@ LOCAL_CFLAGS    += -D_WINSOCKAPI_
 LOCAL_CFLAGS    += -DNDEBUG
 LOCAL_CFLAGS    += -DPR_SET_NAME="15"
 
-AEC3_CC_LIST := $(wildcard $(LOCAL_PATH)/webrtc_aec3_wrapper.cpp)
+AEC3_CC_LIST := $(wildcard $(LOCAL_PATH)/android_webrtc_aec3_wrapper.cpp)
+AEC3_CC_LIST += $(wildcard $(LOCAL_PATH)/modules/audio_processing/audio_processing_impl.cc)
 AEC3_CC_LIST += $(wildcard $(LOCAL_PATH)/modules/audio_processing/aec3/*.cc)
+AEC3_CC_LIST += $(wildcard $(LOCAL_PATH)/api/audio/builtin_audio_processing_builder.cc)
+
 
 LOCAL_SRC_FILES := $(AEC3_CC_LIST:$(LOCAL_PATH)/%=%)
 
