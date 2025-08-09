@@ -34,7 +34,8 @@ android {
 
     sourceSets {
         main {
-            jniLibs.srcDirs('src/main/jniLibs')
+//            jniLibs.srcDirs('src/main/jniLibs')
+            jniLibs.srcDirs('src/main/libs')
         }
     }
 
@@ -52,7 +53,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.12'

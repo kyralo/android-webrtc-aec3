@@ -164,33 +164,7 @@ public class AudioProcessing {
             int ret = -1;
             try {
 
-                _apm = new Apm(vm.getAecExtendFilter(), vm.getSpeechIntelligibilityEnhance(), vm.getDelayAgnostic(), vm.getBeamForming(),
-                        vm.getNextGenerationAEC(), vm.getExperimentalNS(), vm.getExperimentalAGC());
-
-                ret = _apm.HighPassFilter(vm.getHighPassFilter());
-
-                if (vm.getAecPC()) {
-                    ret = _apm.AECClockDriftCompensation(false);
-                    ret = _apm.AECSetSuppressionLevel(Apm.AEC_SuppressionLevel.values()[_aecPCLevel]);
-                    ret = _apm.AEC(true);
-                } else if (vm.getAecMobile()) {
-                    ret = _apm.AECMSetSuppressionLevel(Apm.AECM_RoutingMode.values()[_aecMobileLevel]);
-                    ret = _apm.AECM(true);
-                }
-
-                ret = _apm.NSSetLevel(Apm.NS_Level.values()[_nsLevel]);
-                ret = _apm.NS(vm.getNs());
-
-                ret = _apm.VAD(vm.getVad());
-
-                if (vm.getAgc()) {
-                    ret = _apm.AGCSetAnalogLevelLimits(0, 255);
-                    ret = _apm.AGCSetMode(Apm.AGC_Mode.values()[_agcLevel]);
-                    ret = _apm.AGCSetTargetLevelDbfs(vm.getAgcTargetLevelInt());
-                    ret = _apm.AGCSetcompressionGainDb(vm.getAgcCompressionGainInt());
-                    ret = _apm.AGCEnableLimiter(true);
-                    ret = _apm.AGC(true);
-                }
+                _apm = new Apm();
             } catch (Exception ex) {
                 new AlertDialog.Builder(context).setTitle("System hint")
                         .setMessage(ex.getMessage())
@@ -392,24 +366,8 @@ public class AudioProcessing {
                     if (bytesRead == processBuffer.length) {
                         for (int i = 0; i < AEC_LOOP_COUNT; ++i) {
                             int processBufferOffSet = i * processBuffer.length / AEC_LOOP_COUNT;
-
-                            _apm.SetStreamDelay(vm.getAceBufferDelayMs());
-                            if (vm.getAgc()) {
-                                _apm.AGCSetStreamAnalogLevel(out_analog_level);
-                            }
-
+//                            _apm.SetStreamDelay(vm.getAceBufferDelayMs());
                             _apm.ProcessCaptureStream(processBuffer, processBufferOffSet);
-
-                            if (vm.getAgc()) {
-                                out_analog_level = _apm.AGCStreamAnalogLevel();
-//                                Log.i("AGC", out_analog_level + "");
-                            }
-
-                            if (vm.getVad()) {
-                                if (!_apm.VADHasVoice()) {
-                                    continue;
-                                }
-                            }
                         }
 
                         /*

@@ -31,32 +31,33 @@
 #endif
 // clang-format on
 
-namespace rtc {
+namespace rtc
+{
 #if defined(WEBRTC_WIN)
-typedef DWORD PlatformThreadId;
-typedef DWORD PlatformThreadRef;
+    typedef DWORD PlatformThreadId;
+    typedef DWORD PlatformThreadRef;
 #elif defined(WEBRTC_FUCHSIA)
-typedef zx_handle_t PlatformThreadId;
-typedef zx_handle_t PlatformThreadRef;
+    typedef zx_handle_t PlatformThreadId;
+    typedef zx_handle_t PlatformThreadRef;
 #elif defined(WEBRTC_POSIX)
-typedef pid_t PlatformThreadId;
-typedef pthread_t PlatformThreadRef;
+    typedef pid_t PlatformThreadId;
+    typedef pthread_t PlatformThreadRef;
 #endif
 
-// Retrieve the ID of the current thread.
-PlatformThreadId CurrentThreadId();
+    // Retrieve the ID of the current thread.
+    PlatformThreadId CurrentThreadId();
 
-// Retrieves a reference to the current thread. On Windows, this is the same
-// as CurrentThreadId. On other platforms it's the pthread_t returned by
-// pthread_self().
-PlatformThreadRef CurrentThreadRef();
+    // Retrieves a reference to the current thread. On Windows, this is the same
+    // as CurrentThreadId. On other platforms it's the pthread_t returned by
+    // pthread_self().
+    PlatformThreadRef CurrentThreadRef();
 
-// Compares two thread identifiers for equality.
-bool IsThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b);
+    // Compares two thread identifiers for equality.
+    bool IsThreadRefEqual(const PlatformThreadRef &a, const PlatformThreadRef &b);
 
-// Sets the current thread name.
-void SetCurrentThreadName(const char* name);
+    // Sets the current thread name.
+    void SetCurrentThreadName(const char *name);
 
-}  // namespace rtc
+} // namespace rtc
 
-#endif  // RTC_BASE_PLATFORM_THREAD_TYPES_H_
+#endif // RTC_BASE_PLATFORM_THREAD_TYPES_H_

@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Android Audio Processing'
+rootProject.name='android-webrtc-m136'

@@ -596,13 +596,13 @@ class RTC_EXPORT AudioProcessing : public RefCountInterface {
   // This must be called prior to ProcessStream() if and only if adaptive analog
   // gain control is enabled, to pass the current analog level from the audio
   // HAL. Must be within the range [0, 255].
-  virtual void set_stream_analog_level(int level) = 0;
+//  virtual void set_stream_analog_level(int level) = 0;
 
   // When an analog mode is set, this should be called after
   // `set_stream_analog_level()` and `ProcessStream()` to obtain the recommended
   // new analog level for the audio HAL. It is the user's responsibility to
   // apply this level.
-  virtual int recommended_stream_analog_level() const = 0;
+//  virtual int recommended_stream_analog_level() const = 0;
 
   // This must be called if and only if echo processing is enabled.
   //

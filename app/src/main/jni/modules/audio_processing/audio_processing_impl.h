@@ -107,9 +107,9 @@ namespace webrtc
             RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
         int set_stream_delay_ms(int delay) override;
         void set_stream_key_pressed(bool key_pressed) override;
-        void set_stream_analog_level(int level) override;
-        int recommended_stream_analog_level() const
-            RTC_LOCKS_EXCLUDED(mutex_capture_) override;
+//        void set_stream_analog_level(int level) override;
+//        int recommended_stream_analog_level() const
+//            RTC_LOCKS_EXCLUDED(mutex_capture_) override;
 
         // Render-side exclusive methods possibly running APM in a
         // multi-threaded manner. Acquire the render lock.

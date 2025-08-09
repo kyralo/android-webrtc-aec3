@@ -655,7 +655,7 @@ namespace webrtc
     InitializeAnalyzer();
     InitializePostProcessor();
     InitializePreProcessor();
-    InitializeCaptureLevelsAdjuster();
+    // InitializeCaptureLevelsAdjuster();
 
     if (aec_dump_)
     {
@@ -802,17 +802,17 @@ namespace webrtc
       InitializeEchoController();
     }
 
-    if (ns_config_changed)
-    {
-      InitializeNoiseSuppressor();
-    }
+    //    if (ns_config_changed)
+    //    {
+    //      InitializeNoiseSuppressor();
+    //    }
 
     InitializeHighPassFilter(false);
 
-    if (agc1_config_changed)
-    {
-      InitializeGainController1();
-    }
+    //    if (agc1_config_changed)
+    //    {
+    //      InitializeGainController1();
+    //    }
 
     // const bool config_ok = GainController2::Validate(config_.gain_controller2);
     // if (!config_ok)
@@ -827,10 +827,10 @@ namespace webrtc
     //   InitializeGainController2();
     // }
 
-    if (pre_amplifier_config_changed || gain_adjustment_config_changed)
-    {
-      InitializeCaptureLevelsAdjuster();
-    }
+    // if (pre_amplifier_config_changed || gain_adjustment_config_changed)
+    // {
+    //   InitializeCaptureLevelsAdjuster();
+    // }
 
     // Reinitialization must happen after all submodule configuration to avoid
     // additional reinitializations on the next capture / render processing call.
@@ -1044,7 +1044,7 @@ namespace webrtc
       capture_.capture_fullband_audio->CopyFrom(
           src, formats_.api_format.input_stream());
     }
-    RETURN_ON_ERR(ProcessCaptureStreamLocked());
+    //    RETURN_ON_ERR(ProcessCaptureStreamLocked());
     if (capture_.capture_fullband_audio)
     {
       capture_.capture_fullband_audio->CopyTo(formats_.api_format.output_stream(),
@@ -1398,7 +1398,7 @@ namespace webrtc
     {
       capture_.capture_fullband_audio->CopyFrom(src, input_config);
     }
-    RETURN_ON_ERR(ProcessCaptureStreamLocked());
+    //    RETURN_ON_ERR(ProcessCaptureStreamLocked());
     if (submodule_states_.CaptureMultiBandProcessingPresent() ||
         submodule_states_.CaptureFullBandProcessingActive())
     {
@@ -1815,24 +1815,24 @@ namespace webrtc
     return kNoError;
   }
 
-  // int AudioProcessingImpl::AnalyzeReverseStreamLocked(
-  //     const float *const *src,
-  //     const StreamConfig & /* input_config */,
-  //     const StreamConfig & /* output_config */)
-  // {
-  //   if (aec_dump_)
-  //   {
-  //     const size_t channel_size =
-  //         formats_.api_format.reverse_input_stream().num_frames();
-  //     const size_t num_channels =
-  //         formats_.api_format.reverse_input_stream().num_channels();
-  //     aec_dump_->WriteRenderStreamMessage(
-  //         AudioFrameView<const float>(src, num_channels, channel_size));
-  //   }
-  //   render_.render_audio->CopyFrom(src,
-  //                                  formats_.api_format.reverse_input_stream());
-  //   return ProcessRenderStreamLocked();
-  // }
+   int AudioProcessingImpl::AnalyzeReverseStreamLocked(
+       const float *const *src,
+       const StreamConfig & /* input_config */,
+       const StreamConfig & /* output_config */)
+   {
+     if (aec_dump_)
+     {
+       const size_t channel_size =
+           formats_.api_format.reverse_input_stream().num_frames();
+       const size_t num_channels =
+           formats_.api_format.reverse_input_stream().num_channels();
+       aec_dump_->WriteRenderStreamMessage(
+           AudioFrameView<const float>(src, num_channels, channel_size));
+     }
+     render_.render_audio->CopyFrom(src,
+                                    formats_.api_format.reverse_input_stream());
+     return ProcessRenderStreamLocked();
+   }
 
   int AudioProcessingImpl::ProcessReverseStream(const int16_t *const src,
                                                 const StreamConfig &input_config,
