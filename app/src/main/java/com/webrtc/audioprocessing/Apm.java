@@ -37,7 +37,7 @@ public class Apm {
     { // 16K, 16bits, mono， 10ms
         return ProcessReverseStream(farEnd, offset);
     }
-//    public int SetStreamDelay(int delay_ms){ return set_stream_delay_ms(delay_ms);  }
+    public int SetStreamDelay(int delay_ms){ return set_stream_delay_ms(delay_ms);  }
 
     @Override
     protected void finalize() throws Throwable {
@@ -50,7 +50,7 @@ public class Apm {
 
     private native int ProcessStream(short[] nearEnd, int offset); //Local data// 16K, 16Bits, 10ms
     private native int ProcessReverseStream(short[] farEnd, int offset); // Remote data // 16K, 16Bits, 10ms
-//    private native int set_stream_delay_ms(int delay);
+    private native int set_stream_delay_ms(int delay);
 
     private boolean _init = false;
     private long objData; // do not modify it.

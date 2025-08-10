@@ -29,6 +29,12 @@ extern "C"
          */
         JNIEXPORT jint JNICALL Java_com_webrtc_audioprocessing_Apm_ProcessStream(JNIEnv *, jobject, jshortArray, jint);
 
+        /*
+         * Class:     com_webrtc_audioprocessing_Apm
+         * Method:    set_stream_delay_ms
+         * Signature: (I)I
+         */
+        JNIEXPORT jint JNICALL Java_com_webrtc_audioprocessing_Apm_set_stream_delay_ms(JNIEnv *, jobject, jint);
 #ifdef __cplusplus
 }
 #endif

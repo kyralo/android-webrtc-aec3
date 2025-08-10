@@ -366,7 +366,7 @@ public class AudioProcessing {
                     if (bytesRead == processBuffer.length) {
                         for (int i = 0; i < AEC_LOOP_COUNT; ++i) {
                             int processBufferOffSet = i * processBuffer.length / AEC_LOOP_COUNT;
-//                            _apm.SetStreamDelay(vm.getAceBufferDelayMs());
+                            _apm.SetStreamDelay(vm.getAceBufferDelayMs());
                             _apm.ProcessCaptureStream(processBuffer, processBufferOffSet);
                         }
 

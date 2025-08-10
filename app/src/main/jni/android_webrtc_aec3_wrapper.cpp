@@ -112,6 +112,10 @@ extern "C"
         return ret;
     };
 
+    JNIEXPORT jint JNICALL Java_com_webrtc_audioprocessing_Apm_set_stream_delay_ms(JNIEnv *env, jobject thiz, jint delay){
+        ApmWrapper *apm = (ApmWrapper *)get_ctx(env, thiz);
+        return apm->_apm->set_stream_delay_ms(delay);
+    }
 #ifdef __cplusplus
 }
 #endif
